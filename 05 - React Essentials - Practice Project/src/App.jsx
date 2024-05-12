@@ -8,13 +8,13 @@ import UserInput from './components/UserInput';
 
 function App() {
     const initialState = {
-        intialInvestment: 10000,
+        initialInvestment: 10000,
         annualInvestment: 1200,
         expectedReturn: 6,
         duration: 10,
     }
     const [userInput, setUserInput] = useState(initialState);
-    const handleInputChange = (inputId, newVal) => setUserInput(prev => ({ ...prev, [inputId]: newVal }));
+    const handleInputChange = (inputId, newVal) => setUserInput(prev => ({ ...prev, [inputId]: +newVal }));
 
     return (
         <>
