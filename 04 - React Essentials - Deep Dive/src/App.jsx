@@ -27,6 +27,21 @@ function App() {
         });
     }
 
+    const gameBoard = initialGameBoard;
+
+    for (const turn of gameTurns) {
+        const { square, player } = turn;
+        const { row, col } = square;
+        gameBoard[row][col] = player;
+    }
+
+
+    for (const combo of WINNING_COMBINATIONS) {
+        const firstSquareSymbol = gameTurns[0];
+        const secondSquareSymbol = gameTurns[0];
+        const thirdSquareSymbol = gameTurns[0];
+    }
+
     return (
         <main>
             <div id='game-container'>
@@ -34,7 +49,7 @@ function App() {
                     <Player initialName='Player 1' symbol='X' isActive={activePlayer === 'X'} />
                     <Player initialName='Player 2' symbol='O' isActive={activePlayer === 'O'} />
                 </ol>
-                <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
+                <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
             </div>
             <Log turns={gameTurns} />
         </main>
@@ -42,3 +57,9 @@ function App() {
 }
 
 export default App;
+
+const initialGameBoard = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+];
