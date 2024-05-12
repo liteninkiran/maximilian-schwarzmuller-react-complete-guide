@@ -15,12 +15,19 @@ function App() {
     }
     const [userInput, setUserInput] = useState(initialState);
     const handleInputChange = (inputId, newVal) => setUserInput(prev => ({ ...prev, [inputId]: +newVal }));
+    const inputIsValid = userInput.duration >= 1;
 
     return (
         <>
             <Header />
             <UserInput onChange={handleInputChange} userInput={userInput} />
-            <Results userInput={userInput} />
+            {
+                inputIsValid ? (
+                    <Results userInput={userInput} />
+                ) : (
+                    <p className='center'>Please enter valid input data</p>
+                )
+            }
         </>
     );
 }
