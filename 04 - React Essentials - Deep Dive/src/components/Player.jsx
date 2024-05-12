@@ -10,14 +10,14 @@ export default function Player({ name, symbol }) {
             <span className='player'>
                 {
                     isEditing ? (
-                        <input type='text' required />
+                        <input type='text' required value={name} />
                     ) : (
                         <span className='player-name'>{name}</span>
                     )
                 }
                 <span className='player-symbol'>{symbol}</span>
             </span>
-            <button onClick={handleEditClick}>Edit</button>
+            <button onClick={handleEditClick}>{isEditing ? 'Save' : 'Edit'}</button>
         </li>
     );
 }
