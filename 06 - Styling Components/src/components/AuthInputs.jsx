@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import { Button, TextButton } from './Button';
+import { Button } from './Button';
 import { InputWithLabel as Input } from './Input';
 
 export default function AuthInputs() {
@@ -39,7 +39,7 @@ export default function AuthInputs() {
                 />
             </ControlDiv>
             <div className='actions'>
-                <TextButton type='button'>Create a new account</TextButton>
+                <Button type='button'>Create a new account</Button>
                 <Button onClick={handleLogin}>Sign In</Button>
             </div>
         </div>
