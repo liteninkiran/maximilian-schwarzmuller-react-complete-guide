@@ -7,7 +7,7 @@ const ResultModal = forwardRef(
         const score = Math.round((1 - remainingTime / targetTime / 1000) * 100);
         useImperativeHandle(ref, () => ({ open: () => dialog.current.showModal() }));
         return (
-            <dialog className='result-modal' ref={dialog}>
+            <dialog className='result-modal' ref={dialog} onClose={onReset}>
                 {
                     userLost ? (
                         <h2>You lost</h2>
