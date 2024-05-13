@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
 import { Button } from './Button';
-import { InputWithLabel as Input } from './Input';
+import { Input } from './Input';
 
 export default function AuthInputs() {
     const [enteredEmail, setEnteredEmail] = useState('');
@@ -28,12 +28,12 @@ export default function AuthInputs() {
             <ControlDiv>
                 <Input
                     label='Email'
-                    $invalid={emailNotValid}
+                    invalid={emailNotValid}
                     onChange={event => handleInputChange('email', event.target.value)}
                 />
                 <Input
                     label='Password'
-                    $invalid={passwordNotValid}
+                    invalid={passwordNotValid}
                     onChange={event => handleInputChange('password', event.target.value)}
                     type='password'
                 />
