@@ -35,14 +35,14 @@ button:focus {
     background: linear-gradient(180deg, #474232 0%, #28271c 100%);
     color: white;
 }
-
+/* 
 .controls {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
 }
-
+ */
 .controls label {
     display: block;
     margin-bottom: 0.5rem;
