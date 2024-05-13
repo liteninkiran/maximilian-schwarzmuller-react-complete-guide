@@ -29,12 +29,12 @@ export default function AuthInputs() {
                 <Input
                     label='Email'
                     $invalid={emailNotValid}
-                    onChange={(event) => handleInputChange('email', event.target.value)}
+                    onChange={event => handleInputChange('email', event.target.value)}
                 />
                 <Input
                     label='Password'
                     $invalid={passwordNotValid}
-                    onChange={(event) => handleInputChange('password', event.target.value)}
+                    onChange={event => handleInputChange('password', event.target.value)}
                     type='password'
                 />
             </ControlDiv>
