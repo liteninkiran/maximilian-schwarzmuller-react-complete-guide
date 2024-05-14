@@ -19,6 +19,11 @@ function App() {
         selectedProjectId: undefined,
         projects: [...prev.projects, { ...data, id: Math.floor(Math.random() * (10000)) }],
     }));
+    const handleDeleteProject = () => setProjectsState(prev => ({
+        ...prev,
+        selectedProjectId: undefined,
+        projects: prev.projects.filter(project => project.id !== prev.selectedProjectId),
+    }));
     const selectedProject = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
     return (
         <main className='h-screen my-8 flex gap-8'>
@@ -35,7 +40,7 @@ function App() {
                     projectsState.selectedProjectId === undefined ? (
                         <NoProjectSelected onStartAddProject={handleStartAddProject} />
                     ) : (
-                        <SelectedProject project={selectedProject} />
+                        <SelectedProject project={selectedProject} onDelete={handleDeleteProject} />
                     )
                 )
             }
