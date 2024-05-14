@@ -7,16 +7,19 @@ import logoImg from './assets/logo.png';
 import { AVAILABLE_PLACES } from './data.js';
 import { sortPlacesByDistance } from './loc.js';
 
+const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+const storedPlaces = storedIds.map(id => AVAILABLE_PLACES.find(place => place.id === id));
+
 function App() {
     const modal = useRef();
     const selectedPlace = useRef();
     const [pickedPlaces, setPickedPlaces] = useState([]);
-    const [availablePlaces, setAvailablePlaces] = useState([]);
+    const [availablePlaces, setAvailablePlaces] = useState(storedPlaces);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((res) => {
             const sortedPlaces = sortPlacesByDistance(AVAILABLE_PLACES, res.coords.latitude, res.coords.longitude);
-            setAvailablePlaces(sortedPlaces);
+            setTimeout(() => setAvailablePlaces(sortedPlaces), 500);
         });
     }, []);
 
@@ -48,6 +51,9 @@ function App() {
             prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
         );
         modal.current.close();
+        const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+        const filteredIds = storedIds.filter(id => id !== selectedPlace.current);
+        localStorage.setItem('selectedPlaces', JSON.stringify(filteredIds));
     }
 
     return (
