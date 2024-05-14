@@ -12,7 +12,7 @@ function App() {
         items: [],
     });
 
-    function handleAddItemToCart(id) {
+    const handleAddItemToCart = (id) => {
         setShoppingCart((prevShoppingCart) => {
             const updatedItems = [...prevShoppingCart.items];
 
@@ -43,7 +43,7 @@ function App() {
         });
     }
 
-    function handleUpdateCartItemQuantity(productId, amount) {
+    const handleUpdateCartItemQuantity = (productId, amount) => {
         setShoppingCart((prevShoppingCart) => {
             const updatedItems = [...prevShoppingCart.items];
             const updatedItemIndex = updatedItems.findIndex(
@@ -68,8 +68,13 @@ function App() {
         });
     }
 
+    const ctxValue = {
+        items: shoppingCart.items,
+        addItemToCart: handleAddItemToCart,
+    }
+
     return (
-        <CartContext.Provider value={{ items: [] }}>
+        <CartContext.Provider value={ctxValue}>
             <Header
                 cart={shoppingCart}
                 onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
