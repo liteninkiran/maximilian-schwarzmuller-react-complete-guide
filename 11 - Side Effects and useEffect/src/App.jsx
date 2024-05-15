@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 import Places from './components/Places.jsx';
 import Modal from './components/Modal.jsx';
@@ -47,7 +47,7 @@ function App() {
         }
     }
 
-    function handleRemovePlace() {
+    const handleRemovePlaceFn = () => {
         setPickedPlaces((prevPickedPlaces) =>
             prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
         );
@@ -56,6 +56,8 @@ function App() {
         const filteredIds = storedIds.filter(id => id !== selectedPlace.current);
         localStorage.setItem('selectedPlaces', JSON.stringify(filteredIds));
     }
+
+    const handleRemovePlace = useCallback(handleRemovePlaceFn, []);
 
     return (
         <>
