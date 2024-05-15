@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useCallback } from 'react';
 
 import IconButton from '../UI/IconButton.jsx';
 import MinusIcon from '../UI/Icons/MinusIcon.jsx';
@@ -27,8 +27,10 @@ const Counter = ({ initialCount }) => {
     log('<Counter /> rendered', 1);
     const initialCountIsPrime = isPrime(initialCount);
     const [counter, setCounter] = useState(initialCount);
-    const handleDecrement = () => setCounter((prevCounter) => prevCounter - 1);
-    const handleIncrement = () => setCounter((prevCounter) => prevCounter + 1);
+    const handleDecrementFn = () => setCounter((prevCounter) => prevCounter - 1);
+    const handleIncrementFn = () => setCounter((prevCounter) => prevCounter + 1);
+    const handleDecrement = useCallback(handleDecrementFn, []);
+    const handleIncrement = useCallback(handleIncrementFn, []);
 
     return (
         <section className='counter'>
