@@ -7,11 +7,7 @@ import CounterOutput from './CounterOutput.jsx';
 import { log } from '../../log.js';
 
 const isPrime = (number) => {
-    log(
-        'Calculating if is prime number',
-        2,
-        'other'
-    );
+    log('Calculating if is prime number', 2, 'other');
     if (number <= 1) {
         return false;
     }
