@@ -11,7 +11,7 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
     });
     const delay1 = 1000;
     const delay2 = 2000;
-    const delay3 = 100000;
+    const delay3 = 5000;
     const handleSelectAnswer = (answer) => {
         setAnswer({
             selectedAnswer: answer,
@@ -27,19 +27,8 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
             }, delay2);
         }, delay1);
     }
-    // const timer = answer.selectedAnswer && answer.isCorrect === null
-    //     ? delay1
-    //     : answer.selectedAnswer && answer.isCorrect !== null
-    //         ? delay2
-    //         : delay3
-
-    let timer = delay3;
-    if (answer.selectedAnswer) {
-        timer = delay1;
-    }
-    if (answer.isCorrect !== null) {
-        timer = delay2;
-    }
+    const timer = answer.selectedAnswer && answer.isCorrect === null ? delay1
+                : answer.selectedAnswer && answer.isCorrect !== null ? delay2 : delay3
 
     let answerState = '';
     if (answer.selectedAnswer && answer.isCorrect !== null) {
