@@ -11,7 +11,7 @@ export default function Quiz() {
     const handleSelectAnswerFn = (selectedAnswer) => {
         setUserAnswers((prevUserAnswers) => [...prevUserAnswers, selectedAnswer]);
     }
-    const handleSelectAnswer = useCallback(() => handleSelectAnswerFn, []);
+    const handleSelectAnswer = useCallback(handleSelectAnswerFn, []);
     const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
 
     if (activeQuestionIndex === QUESTIONS.length) {
@@ -29,7 +29,7 @@ export default function Quiz() {
     return (
         <div id='quiz'>
             <div id='question'>
-                <QuestionTimer timeout={10000} onTimeout={handleSkipAnswer} />
+                <QuestionTimer key={activeQuestionIndex} timeout={3000} onTimeout={handleSkipAnswer} />
                 <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
                 <ul id='answers'>
                     {
