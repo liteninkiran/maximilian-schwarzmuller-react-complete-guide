@@ -184,7 +184,7 @@ header h1 {
     color: #2c203d;
 }
 
-.answer button.wrong {
+.answer button.incorrect {
     /* background: linear-gradient(180deg, #f96fb1 0%, #f52b8c 100%); */
     background: #f55a98;
     color: #2c203d;
@@ -283,7 +283,7 @@ header h1 {
     color: #054e37;
 }
 
-#summary .user-answer.wrong {
+#summary .user-answer.incorrect {
     color: #730b4b;
 }
 
