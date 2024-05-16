@@ -28,7 +28,8 @@ app.get('/places', async (req, res) => {
 app.get('/user-places', async (req, res) => {
     const fileContent = await fs.readFile('./data/user-places.json');
     const places = JSON.parse(fileContent);
-    res.status(200).json({ places });
+    setTimeout(() => res.status(200).json({ places }), 500);
+    // res.status(200).json({ places });
 });
 
 app.put('/user-places', async (req, res) => {

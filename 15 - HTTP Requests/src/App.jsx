@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 
 import Places from './components/Places.jsx';
 import Modal from './components/Modal.jsx';
@@ -6,13 +6,29 @@ import Error from './components/Error.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import AvailablePlaces from './components/AvailablePlaces.jsx';
-import { updateUserPlaces } from './http.js'
+import { fetchUserPlaces, updateUserPlaces } from './http.js'
 
 function App() {
     const selectedPlace = useRef();
     const [userPlaces, setUserPlaces] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [updateError, setUpdateError] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
+    useEffect(() => {
+        const fetchPlaces = async () => {
+            setIsLoading(true);
+            try {
+                const userPlaces = await fetchUserPlaces();
+                setUserPlaces(userPlaces);
+            } catch(error) {
+                const message = 'Failed to fetch user data';
+                setError({ message: error.message || message });
+            }
+            setIsLoading(false);
+        }
+        fetchPlaces();
+    }, []);
     const handleStartRemovePlace = place => {
         setModalIsOpen(true);
         selectedPlace.current = place;
@@ -77,13 +93,20 @@ function App() {
                 </p>
             </header>
             <main>
-                <Places
-                    title="I'd like to visit ..."
-                    fallbackText='Select the places you would like to visit below.'
-                    places={userPlaces}
-                    onSelectPlace={handleStartRemovePlace}
-                />
-
+                {
+                    error ? (
+                        <Error title='An error occurred' message={error.message} />
+                    ) : (
+                        <Places
+                            title="I'd like to visit ..."
+                            fallbackText='Select the places you would like to visit below.'
+                            isLoading={isLoading}
+                            loadingText='Fetching data...'
+                            places={userPlaces}
+                            onSelectPlace={handleStartRemovePlace}
+                        />
+                     )
+                }
                 <AvailablePlaces onSelectPlace={handleSelectPlace} />
             </main>
         </>
