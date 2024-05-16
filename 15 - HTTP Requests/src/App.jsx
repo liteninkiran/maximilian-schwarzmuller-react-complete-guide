@@ -5,42 +5,35 @@ import Modal from './components/Modal.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import AvailablePlaces from './components/AvailablePlaces.jsx';
+import { updateUserPlaces } from './http.js'
 
 function App() {
     const selectedPlace = useRef();
-
     const [userPlaces, setUserPlaces] = useState([]);
-
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    function handleStartRemovePlace(place) {
+    const handleStartRemovePlace = place => {
         setModalIsOpen(true);
         selectedPlace.current = place;
     }
-
-    function handleStopRemovePlace() {
-        setModalIsOpen(false);
-    }
-
-    function handleSelectPlace(selectedPlace) {
-        setUserPlaces((prevPickedPlaces) => {
-            if (!prevPickedPlaces) {
-                prevPickedPlaces = [];
-            }
-            if (prevPickedPlaces.some((place) => place.id === selectedPlace.id)) {
-                return prevPickedPlaces;
-            }
-            return [selectedPlace, ...prevPickedPlaces];
+    const handleStopRemovePlace = () => setModalIsOpen(false);
+    const handleSelectPlace = async (selectedPlace) => {
+        setUserPlaces(prev => {
+            prev = prev ?? [];
+            return prev.some((place) => place.id === selectedPlace.id)
+                ? prev
+                : [selectedPlace, ...prev];
         });
+        try {
+            await updateUserPlaces([selectedPlace, ...userPlaces]);
+        } catch (error) {
+
+        }
     }
-
-    const handleRemovePlace = useCallback(async function handleRemovePlace() {
-        setUserPlaces((prevPickedPlaces) =>
-            prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
-        );
-
+    const handleRemovePlaceFn = () => {
+        setUserPlaces(prev => prev.filter(place => place.id !== selectedPlace.current.id));
         setModalIsOpen(false);
-    }, []);
+    }
+    const handleRemovePlace = useCallback(handleRemovePlaceFn, []);
 
     return (
         <>
