@@ -2,6 +2,7 @@ import { useRef, useState, useCallback } from 'react';
 
 import Places from './components/Places.jsx';
 import Modal from './components/Modal.jsx';
+import Error from './components/Error.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import AvailablePlaces from './components/AvailablePlaces.jsx';
@@ -11,6 +12,7 @@ function App() {
     const selectedPlace = useRef();
     const [userPlaces, setUserPlaces] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [updateError, setUpdateError] = useState();
     const handleStartRemovePlace = place => {
         setModalIsOpen(true);
         selectedPlace.current = place;
@@ -26,7 +28,8 @@ function App() {
         try {
             await updateUserPlaces([selectedPlace, ...userPlaces]);
         } catch (error) {
-
+            setUserPlaces(userPlaces);
+            setUpdateError({ message: error.message || 'Failed to update' });
         }
     }
     const handleRemovePlaceFn = () => {
@@ -34,9 +37,24 @@ function App() {
         setModalIsOpen(false);
     }
     const handleRemovePlace = useCallback(handleRemovePlaceFn, []);
+    const handleError = () => setUpdateError(null);
 
     return (
         <>
+            <Modal open={updateError} onClose={handleError}>
+                {
+                    updateError ? (
+                        <Error
+                            title='An error occurred'
+                            message={updateError.message}
+                            onConfirm={handleError}
+                        />
+                    ) : (
+                        null
+                    )
+                }
+            </Modal>
+
             <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
                 <DeleteConfirmation
                     onCancel={handleStopRemovePlace}
