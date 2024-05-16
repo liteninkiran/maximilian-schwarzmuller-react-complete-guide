@@ -32,11 +32,17 @@ function App() {
             setUpdateError({ message: error.message || 'Failed to update' });
         }
     }
-    const handleRemovePlaceFn = () => {
+    const handleRemovePlaceFn = async () => {
         setUserPlaces(prev => prev.filter(place => place.id !== selectedPlace.current.id));
+        try {
+            await updateUserPlaces(userPlaces.filter(place => place.id !== selectedPlace.current.id));
+        } catch (error) {
+            setUserPlaces(userPlaces);
+            setUpdateError({ message: error.message || 'Failed to delete' });
+        }
         setModalIsOpen(false);
     }
-    const handleRemovePlace = useCallback(handleRemovePlaceFn, []);
+    const handleRemovePlace = useCallback(handleRemovePlaceFn, [userPlaces]);
     const handleError = () => setUpdateError(null);
 
     return (
