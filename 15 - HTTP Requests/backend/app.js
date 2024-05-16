@@ -21,7 +21,8 @@ app.use((req, res, next) => {
 app.get('/places', async (req, res) => {
     const fileContent = await fs.readFile('./data/places.json');
     const placesData = JSON.parse(fileContent);
-    res.status(200).json({ places: placesData });
+    setTimeout(() => res.status(200).json({ places: placesData }), 500);
+    // res.status(200).json({ places: placesData });
 });
 
 app.get('/user-places', async (req, res) => {
@@ -45,3 +46,4 @@ app.use((req, res, next) => {
 });
 
 app.listen(3000);
+console.log('Express server listening on port 3000');
