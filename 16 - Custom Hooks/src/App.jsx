@@ -9,16 +9,17 @@ import { fetchUserPlaces, updateUserPlaces } from './http.js';
 import Error from './components/Error.jsx';
 
 function App() {
+    // Refs
     const selectedPlace = useRef();
 
+    // State
     const [userPlaces, setUserPlaces] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
-
     const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
-
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    // Side Effects
     useEffect(() => {
         async function fetchPlaces() {
             setIsFetching(true);
@@ -35,6 +36,7 @@ function App() {
         fetchPlaces();
     }, []);
 
+    // Functions
     function handleStartRemovePlace(place) {
         setModalIsOpen(true);
         selectedPlace.current = place;
