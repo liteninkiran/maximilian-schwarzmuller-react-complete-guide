@@ -6,8 +6,8 @@ export default function Signup() {
         const acquisition = fd.getAll('acquisition');
         const data = Object.fromEntries(fd.entries());
         data.acquisition = acquisition;
-
         console.log('Form Submitted', data);
+        event.target.reset();
     }
     return (
         <form onSubmit={handleSubmit}>
