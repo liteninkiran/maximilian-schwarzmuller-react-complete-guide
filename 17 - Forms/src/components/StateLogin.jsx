@@ -1,14 +1,17 @@
 import { useState } from "react";
 
-const initalState = {
-    email: '',
-    password: '',
-}
+const inputsInitial = { email: '', password: '' }
+const didEditInitial = { email: false, password: false }
 
 export default function Login() {
-    const [inputs, setInputs] = useState(initalState);
-    const emailIsInvalid = inputs.email !== '' && !inputs.email.includes('@');
-    const handleInputsChange = (value, key) => setInputs(prev => ({ ...prev, [key]: value }))
+    const [inputs, setInputs] = useState(inputsInitial);
+    const [didEdit, setDidEdit] = useState(didEditInitial);
+    const emailIsInvalid = didEdit.email && !inputs.email.includes('@');
+    const handleInputsChange = (value, key) => {
+        setInputs(prev => ({ ...prev, [key]: value }));
+        setDidEdit(prev => ({ ...prev, [key]: false }));
+    }
+    const handleInputsBlur = key => setDidEdit(prev => ({ ...prev, [key]: true }));
     const handleSubmit = event => {
         event.preventDefault();
     }
@@ -25,7 +28,8 @@ export default function Login() {
                         type='email'
                         name='email'
                         value={inputs.email}
-                        onChange={(event) => handleInputsChange(event.target.value, 'email')}
+                        onChange={event => handleInputsChange(event.target.value, 'email')}
+                        onBlur={() => handleInputsBlur('email')}
                     />
                     <div className='control-error'>
                         { emailIsInvalid && <p>Please enter a valid email address</p> }
@@ -39,7 +43,8 @@ export default function Login() {
                         type='password'
                         name='password'
                         value={inputs.password}
-                        onChange={(event) => handleInputsChange(event.target.value,'password')}
+                        onChange={event => handleInputsChange(event.target.value,'password')}
+                        onBlur={() => handleInputsBlur('password')}
                     />
                 </div>
             </div>
