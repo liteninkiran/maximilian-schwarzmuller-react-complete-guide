@@ -1,11 +1,19 @@
+import { useState } from 'react';
 import { useRef } from 'react';
 
 export default function Login() {
+    const [emailIsInvalid, setEmailIsInvalid] = useState(false);
     const email = useRef();
     const password = useRef();
     const handleSubmit = event => {
         event.preventDefault();
         console.log(email.current.value, password.current.value);
+        const emailIsValid = email.current.value.includes('@');
+        if (!emailIsValid) {
+            setEmailIsInvalid(true);
+            return;
+        }
+        setEmailIsInvalid(false);
     }
 
     return (
@@ -17,10 +25,13 @@ export default function Login() {
                     <label htmlFor='email'>Email</label>
                     <input
                         id='email'
-                        type='email'
+                        type='text'
                         name='email'
                         ref={email}
                     />
+                    <div className='control-error'>
+                        { emailIsInvalid && <p>Please enter a valid email address</p> }
+                    </div>
                 </div>
 
                 <div className='control no-margin'>
