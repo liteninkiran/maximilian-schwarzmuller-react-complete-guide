@@ -7,6 +7,7 @@ const initalState = {
 
 export default function Login() {
     const [inputs, setInputs] = useState(initalState);
+    const emailIsInvalid = inputs.email !== '' && !inputs.email.includes('@');
     const handleInputsChange = (value, key) => setInputs(prev => ({ ...prev, [key]: value }))
     const handleSubmit = event => {
         event.preventDefault();
@@ -26,6 +27,9 @@ export default function Login() {
                         value={inputs.email}
                         onChange={(event) => handleInputsChange(event.target.value, 'email')}
                     />
+                    <div className='control-error'>
+                        { emailIsInvalid && <p>Please enter a valid email address</p> }
+                    </div>
                 </div>
 
                 <div className='control no-margin'>
