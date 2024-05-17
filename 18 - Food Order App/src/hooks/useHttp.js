@@ -15,10 +15,12 @@ const useHttp = (url, config, initialData) => {
     const [data, setData] = useState(initialData);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState();
-    const sendRequestFn = async () => {
+    const clearData = () => setData(initialData);
+    const sendRequestFn = async data => {
         setIsLoading(true);
         try {
-            const resData = await sendHttpRequest(url, config);
+            const options = { ...config, body: data }
+            const resData = await sendHttpRequest(url, options);
             setData(resData);
         } catch (error) {
             setError(error.message || message);
@@ -34,7 +36,7 @@ const useHttp = (url, config, initialData) => {
         }
     }, [sendRequest, config]);
 
-    return { data, isLoading, error, sendRequest };
+    return { data, isLoading, error, sendRequest, clearData };
 }
 
 export default useHttp;
