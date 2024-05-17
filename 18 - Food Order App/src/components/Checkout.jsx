@@ -22,6 +22,7 @@ const Checkout = () => {
         event.preventDefault();
         const fd = new FormData(event.target);
         const customerData = Object.fromEntries(fd.entries());
+        console.log(customerData);
     }
     return (
         <Modal open={userCtx.progress === 'checkout'} onClose={handleClose}>
