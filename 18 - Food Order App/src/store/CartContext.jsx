@@ -41,7 +41,6 @@ export const CartContextProvider = ({ children }) => {
     const addItem = item => dispatchCartAction({ type: 'ADD_ITEM', item });
     const removeItem = id => dispatchCartAction({ type: 'REMOVE_ITEM', id });
     const cartContext = { items: cart.items, addItem, removeItem }
-    console.log(cartContext.items);
     return (
         <CartContext.Provider value={cartContext}>
             {children}
