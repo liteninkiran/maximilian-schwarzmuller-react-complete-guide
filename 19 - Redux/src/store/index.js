@@ -14,6 +14,12 @@ const counterReducer = (state = intialState, action) => {
         };
     }
 
+    if (action.type === 'increase') {
+        return {
+            counter: state.counter + action.amount,
+        };
+    }
+
     return state;
 };
 
