@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Input from './Input.jsx';
+import { isEmail, isNotEmpty, hasMinLength } from '../util/validation.js';
 
 const inputsInitial = { email: '', password: '' }
 const didEditInitial = { email: false, password: false }
@@ -7,8 +8,16 @@ const didEditInitial = { email: false, password: false }
 export default function Login() {
     const [inputs, setInputs] = useState(inputsInitial);
     const [didEdit, setDidEdit] = useState(didEditInitial);
-    const emailError = didEdit.email && !inputs.email.includes('@') ? 'Please enter a valid email address' : null;
-    const pwordError = didEdit.password && !inputs.password.trim().length < 6 ? 'Please enter a longer password' : null;
+    const errors = {
+        email: {
+            invalid: didEdit.email && (!isEmail(inputs.email) || !isNotEmpty(inputs.email)),
+            message: 'Please enter a valid email address',
+        },
+        password: {
+            invalid: didEdit.password && !hasMinLength(inputs.password, 6),
+            message: 'Please enter a longer password',
+        },
+    }
     const handleInputsChange = (value, key) => {
         setInputs(prev => ({ ...prev, [key]: value }));
         setDidEdit(prev => ({ ...prev, [key]: false }));
@@ -30,7 +39,7 @@ export default function Login() {
                     label='Email'
                     type='email'
                     name='email'
-                    error={emailError}
+                    error={errors.email.invalid && errors.email.message}
                     value={inputs.email}
                     onChange={event => handleInputsChange(event.target.value, 'email')}
                     onBlur={() => handleInputsBlur('email')}
@@ -42,7 +51,7 @@ export default function Login() {
                     label='Password'
                     type='password'
                     name='password'
-                    error={pwordError}
+                    error={errors.password.invalid && errors.password.message}
                     value={inputs.password}
                     onChange={event => handleInputsChange(event.target.value, 'password')}
                     onBlur={() => handleInputsBlur('password')}
