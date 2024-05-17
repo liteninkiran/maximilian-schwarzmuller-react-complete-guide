@@ -17,12 +17,21 @@ const Checkout = () => {
     const cartCtx = useContext(CartContext);
     const userCtx = useContext(UserProgressContext);
     const cartTotal = cartCtx.items.reduce((total, item) => total + item.quantity * item.price, 0);
-    const handleClose = () => userCtx.hideCheckout();    
+    const handleClose = () => userCtx.hideCheckout();
     const handleSubmit = event => {
         event.preventDefault();
         const fd = new FormData(event.target);
-        const customerData = Object.fromEntries(fd.entries());
-        console.log(customerData);
+        const data = Object.fromEntries(fd.entries());
+        const order = {
+            items: cartCtx.items,
+            customer: data,
+        }
+        const url = 'http://localhost:3000/orders';
+        const method = 'POST';
+        const headers = { 'Content-Type': 'application/json' }
+        const body = JSON.stringify({ order });
+        const options = { method, headers, body }
+        fetch(url, options);
     }
     return (
         <Modal open={userCtx.progress === 'checkout'} onClose={handleClose}>
@@ -40,7 +49,7 @@ const Checkout = () => {
 
                 {/* Name | Email | Street */}
                 <>
-                    <Input label='Full Name' type='text' id='full-name' />
+                    <Input label='Full Name' type='text' id='name' />
                     <Input label='E-Mail Address' type='email' id='email' />
                     <Input label='Street' type='text' id='street' />
                 </>
