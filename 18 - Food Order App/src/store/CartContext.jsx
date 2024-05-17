@@ -7,7 +7,8 @@ const CartContext = createContext({
 });
 
 const cartReducer = (state, action) => {
-    const index = state.items.findIndex(item => item.id === action.item.id);
+    const id = action.type === 'ADD_ITEM' ? action.item.id : action.id;
+    const index = state.items.findIndex(item => item.id === id);
     const newItems = [...state.items];
     const item = index > -1 ? state.items[index] : null;
 
