@@ -11,7 +11,7 @@ const initialAuthState = {
 
 const counterSlice = createSlice({
     name: 'counter',
-    initialCounterState,
+    initialState: initialCounterState,
     reducers: {
         increment(state) { state.counter++; },
         decrement(state) { state.counter--; },
