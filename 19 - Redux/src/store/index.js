@@ -5,7 +5,7 @@ const intialState = {
     showCounter: true,
 }
 const counterReducer = (state = intialState, action) => {
-    const newState = {...state}
+    const newState = structuredClone(state);
 
     if (action.type === 'increment') {
         newState.counter++;
