@@ -1,6 +1,5 @@
 // Challenge / Exercise
 
-// 3. Add a root layout that adds the <MainNavigation> component above all page components
 // 4. Add properly working links to the MainNavigation
 // 5. Ensure that the links in MainNavigation receive an "active" class when active
 // 6. Output a list of dummy events to the EventsPage
@@ -15,10 +14,12 @@ import EventsPage from './pages/EventsPage';
 import EventDetailPage from './pages/EventDetailPage';
 import NewEventPage from './pages/NewEventPage';
 import EditEventPage from './pages/EditEventPage';
+import RootLayout from './pages/Root';
 
 const router = createBrowserRouter([
     {
         path: '/',
+        element: <RootLayout />,
         children: [
             { index: true, element: <HomePage /> },
             { path: '/events', element: <EventsPage /> },
