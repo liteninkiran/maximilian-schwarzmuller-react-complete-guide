@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
     try {
         const events = await getAll();
-        res.json({ events: events });
+        setTimeout(async () => res.json({ events: events }), 1300);
     } catch (error) {
         next(error);
     }
@@ -109,3 +109,4 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 module.exports = router;
+console.log('Listening...');
