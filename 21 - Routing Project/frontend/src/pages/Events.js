@@ -17,7 +17,9 @@ export default EventsPage;
 export const loader = async () => {
     const response = await fetch(url);
     if (!response.ok) {
-        // ...
+        const body = { message: 'Could not fetch events.' }
+        const init = { status: 500 }
+        throw new Response(JSON.stringify(body), init);
     } else {
         return response;
     }
