@@ -8,20 +8,21 @@ import EditEventPage from './pages/EditEvent';
 import RootLayout from './pages/Root';
 import EventsRootLayout from './pages/EventsRoot';
 
+const url = 'http://localhost:8080/events';
+
 const eventRoutes = [
     {
         index: true,
         element: <EventsPage />,
         loader: async () => {
-            const response = await fetch('http://localhost:8080/events');
-
+            const response = await fetch(url);
             if (!response.ok) {
                 // ...
             } else {
-                return (await response.json()).events;
+                const data = await response.json();
+                return data.events;
             }
-
-        }
+        },
     },
     { path: ':id', element: <EventDetailPage /> },
     { path: 'new', element: <NewEventPage /> },
