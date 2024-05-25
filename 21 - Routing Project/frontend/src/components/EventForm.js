@@ -1,4 +1,4 @@
-// import { useNavigate } from 'react-router-dom';
+import { Form } from 'react-router-dom';
 
 import classes from './EventForm.module.css';
 
@@ -9,7 +9,7 @@ function EventForm({ method, event }) {
     }
 
     return (
-        <form className={classes.form}>
+        <Form className={classes.form} method='post'>
 
             {/* Title */}
             <p>
@@ -80,7 +80,7 @@ function EventForm({ method, event }) {
 
             </div>
 
-        </form>
+        </Form>
     );
 }
 
