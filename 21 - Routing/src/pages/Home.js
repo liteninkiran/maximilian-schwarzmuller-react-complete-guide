@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
     const navigate = useNavigate();
-    const navigateHandler = () => navigate('/products');
+    const navigateHandler = () => navigate('products');
 
     return (
         <>
