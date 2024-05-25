@@ -5,7 +5,8 @@ import EventsList from '../components/EventsList';
 const url = 'http://localhost:8080/events';
 
 const EventsPage = () => {
-    const events = useLoaderData();
+    const data = useLoaderData();
+    const events = data.events;
     return (
         <EventsList events={events} />
     );
@@ -18,7 +19,6 @@ export const loader = async () => {
     if (!response.ok) {
         // ...
     } else {
-        const data = await response.json();
-        return data.events;
+        return response;
     }
 }
