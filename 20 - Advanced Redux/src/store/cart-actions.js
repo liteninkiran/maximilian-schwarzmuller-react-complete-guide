@@ -12,8 +12,12 @@ export const fetchCartData = () => {
             return data;
         }
         try {
-            const cartData =await fetchData();
-            dispatch(cartActions.replaceCart(cartData));
+            const cartData = await fetchData();
+            const cart = {
+                items: cartData.items || [],
+                totalQuantity: cartData.totalQuantity,
+            }
+            dispatch(cartActions.replaceCart(cart));
         } catch (error) {
             dispatch(uiActions.showNotification(notifications.fetchError));
         }
@@ -23,9 +27,11 @@ export const fetchCartData = () => {
 export const sendCartData = cart => {
     return async dispatch => {
         dispatch(uiActions.showNotification(notifications.pending));
+        const newCart = {...cart}
+        delete newCart.changed;
         const options = {
             method: 'PUT',
-            body: JSON.stringify(cart),
+            body: JSON.stringify(newCart),
         }
         const sendRequest = async () => {
             const response = await fetch(url, options);
