@@ -25,6 +25,7 @@ import { action as logoutAction } from './pages/Logout';
 // Loaders
 import { loader as eventDetailLoader } from './pages/EventDetail';
 import { loader as eventsLoader } from './pages/Events';
+import { loader as tokenLoader } from './util/auth';
 
 const homeRoute = {
     index: true,
@@ -83,9 +84,11 @@ const logoutRoute = {
     action: logoutAction,
 }
 const mainRoute = {
+    id: 'root',
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    loader: tokenLoader,
     children: [
         homeRoute,
         eventRoute,
