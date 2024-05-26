@@ -15,60 +15,75 @@ import { action as manipulateEventAction } from './components/EventForm';
 import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 import AuthenticationPage from './pages/Authentication';
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <RootLayout />,
-        errorElement: <ErrorPage />,
-        children: [
-            { index: true, element: <HomePage /> },
-            {
-                path: 'events',
-                element: <EventsRootLayout />,
-                children: [
-                    {
-                        index: true,
-                        element: <EventsPage />,
-                        loader: eventsLoader,
-                    },
-                    {
-                        path: ':eventId',
-                        id: 'event-detail',
-                        loader: eventDetailLoader,
-                        children: [
-                            {
-                                index: true,
-                                element: <EventDetailPage />,
-                                action: deleteEventAction,
-                            },
-                            {
-                                path: 'edit',
-                                element: <EditEventPage />,
-                                action: manipulateEventAction,
-                            },
-                        ],
-                    },
-                    {
-                        path: 'new',
-                        element: <NewEventPage />,
-                        action: manipulateEventAction,
-                    },
-                ],
-            },
-            {
-                path: 'newsletter',
-                element: <NewsletterPage />,
-                action: newsletterAction,
-            },
-            {
-                path: 'auth',
-                element: <AuthenticationPage />,
-            },
-        ],
-    },
-]);
+const homeRoute = {
+    index: true,
+    element: <HomePage />,
+}
+const eventIndexRoute = {
+    index: true,
+    element: <EventsPage />,
+    loader: eventsLoader,
+}
+const eventDetailRoute = {
+    index: true,
+    element: <EventDetailPage />,
+    action: deleteEventAction,
+}
+const editEventRoute = {
+    path: 'edit',
+    element: <EditEventPage />,
+    action: manipulateEventAction,
+}
+const eventDetailLoaderRoute = {
+    path: ':eventId',
+    id: 'event-detail',
+    loader: eventDetailLoader,
+    children: [
+        eventDetailRoute,
+        editEventRoute,
+    ],
+}
+const newEventRoute = {
+    path: 'new',
+    element: <NewEventPage />,
+    action: manipulateEventAction,
+}
+const eventRoute = {
+    path: 'events',
+    element: <EventsRootLayout />,
+    children: [
+        eventIndexRoute,
+        eventDetailLoaderRoute,
+        newEventRoute,
+    ],
+}
+const newsLetterRoute = {
+    path: 'newsletter',
+    element: <NewsletterPage />,
+    action: newsletterAction,
+}
+const authRoute = {
+    path: 'auth',
+    element: <AuthenticationPage />,
+}
+const mainRoute = {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+        homeRoute,
+        eventRoute,
+        newsLetterRoute,
+        authRoute,
+    ],
+}
+const routes = [
+    mainRoute,
+];
 
-function App() {
+const router = createBrowserRouter(routes);
+
+const App = () => {
     return <RouterProvider router={router} />;
 }
 
