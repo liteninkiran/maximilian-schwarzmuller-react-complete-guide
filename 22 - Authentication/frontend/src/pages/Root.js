@@ -1,15 +1,24 @@
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useSubmit, useLoaderData } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import MainNavigation from '../components/MainNavigation';
 
-function RootLayout() {
-    // const navigation = useNavigation();
+const RootLayout = () => {
+    const token = useLoaderData();
+    const submit = useSubmit();
+    useEffect(() => {
+        if (!token) {
+            return;
+        }
+        const oneHour = 60 * 60 * 1000;
+        const options = { action: '/logout', method: 'POST' }
+        setTimeout(() => submit(null, options), oneHour);
+    }, [token, submit]);
 
     return (
         <>
             <MainNavigation />
             <main>
-                {/* {navigation.state === 'loading' && <p>Loading...</p>} */}
                 <Outlet />
             </main>
         </>
