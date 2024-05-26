@@ -20,6 +20,7 @@ import { action as manipulateEventAction } from './components/EventForm';
 import { action as deleteEventAction } from './pages/EventDetail';
 import { action as newsletterAction } from './pages/Newsletter';
 import { action as authAction } from './pages/Authentication';
+import { action as logoutAction } from './pages/Logout';
 
 // Loaders
 import { loader as eventDetailLoader } from './pages/EventDetail';
@@ -77,6 +78,10 @@ const authRoute = {
     element: <AuthenticationPage />,
     action: authAction,
 }
+const logoutRoute = {
+    path: 'logout',
+    action: logoutAction,
+}
 const mainRoute = {
     path: '/',
     element: <RootLayout />,
@@ -86,6 +91,7 @@ const mainRoute = {
         eventRoute,
         newsLetterRoute,
         authRoute,
+        logoutRoute,
     ],
 }
 const routes = [
