@@ -1,19 +1,29 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+    RouterProvider,
+    createBrowserRouter,
+} from 'react-router-dom';
 
+// Pages
+import AuthenticationPage from './pages/Authentication';
 import EditEventPage from './pages/EditEvent';
 import ErrorPage from './pages/Error';
-import EventDetailPage, {
-    loader as eventDetailLoader,
-    action as deleteEventAction,
-} from './pages/EventDetail';
-import EventsPage, { loader as eventsLoader } from './pages/Events';
+import EventDetailPage from './pages/EventDetail';
+import EventsPage from './pages/Events';
 import EventsRootLayout from './pages/EventsRoot';
 import HomePage from './pages/Home';
 import NewEventPage from './pages/NewEvent';
+import NewsletterPage from './pages/Newsletter';
 import RootLayout from './pages/Root';
+
+// Actions
 import { action as manipulateEventAction } from './components/EventForm';
-import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
-import AuthenticationPage from './pages/Authentication';
+import { action as deleteEventAction } from './pages/EventDetail';
+import { action as newsletterAction } from './pages/Newsletter';
+import { action as authAction } from './pages/Authentication';
+
+// Loaders
+import { loader as eventDetailLoader } from './pages/EventDetail';
+import { loader as eventsLoader } from './pages/Events';
 
 const homeRoute = {
     index: true,
@@ -65,6 +75,7 @@ const newsLetterRoute = {
 const authRoute = {
     path: 'auth',
     element: <AuthenticationPage />,
+    action: authAction,
 }
 const mainRoute = {
     path: '/',
