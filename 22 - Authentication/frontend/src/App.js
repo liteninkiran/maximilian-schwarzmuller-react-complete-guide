@@ -25,7 +25,7 @@ import { action as logoutAction } from './pages/Logout';
 // Loaders
 import { loader as eventDetailLoader } from './pages/EventDetail';
 import { loader as eventsLoader } from './pages/Events';
-import { loader as tokenLoader } from './util/auth';
+import { tokenLoader, checkAuthLoader } from './util/auth';
 
 const homeRoute = {
     index: true,
@@ -45,6 +45,7 @@ const editEventRoute = {
     path: 'edit',
     element: <EditEventPage />,
     action: manipulateEventAction,
+    loader: checkAuthLoader,
 }
 const eventDetailLoaderRoute = {
     path: ':eventId',
@@ -59,6 +60,7 @@ const newEventRoute = {
     path: 'new',
     element: <NewEventPage />,
     action: manipulateEventAction,
+    loader: checkAuthLoader,
 }
 const eventRoute = {
     path: 'events',
