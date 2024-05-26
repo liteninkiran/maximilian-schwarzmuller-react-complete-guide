@@ -24,6 +24,10 @@ export const action = async({ request, params }) => {
     const options = { method, headers, body }
     const response = await fetch(url, options);
 
+    if (response.status === 422) {
+        return response;
+    }
+
     if (!response.ok) {
         const body = { message: 'Could not save event.' }
         const init = { status: 500 }

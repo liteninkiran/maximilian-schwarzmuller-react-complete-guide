@@ -58,7 +58,7 @@ router.post('/', async (req, res, next) => {
     try {
         await add(data);
         const body = { message: 'Event saved.', event: data }
-        setTimeout(async () => res.status(201).json(body), 1300);
+        res.status(201).json(body);
 
     } catch (error) {
         next(error);
