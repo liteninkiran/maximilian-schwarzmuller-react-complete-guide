@@ -10,6 +10,7 @@ import EventDetailPage, {
 } from './pages/EventDetail';
 import NewEventPage from './pages/NewEvent';
 import EditEventPage from './pages/EditEvent';
+import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 import ErrorPage from './pages/Error';
 
 // Components
@@ -19,7 +20,7 @@ import { action as saveEventAction } from './components/EventForm';
 import RootLayout from './pages/Root';
 import EventsRootLayout from './pages/EventsRoot';
 
-const eventRoutes = [
+const eventRouteChildren = [
     {
         index: true,
         element: <EventsPage />,
@@ -54,15 +55,22 @@ const indexRoute = {
     element: <HomePage />,
 }
 
-const childRoutes = {
+const eventRoutes = {
     path: 'events',
     element: <EventsRootLayout />,
-    children: eventRoutes,
+    children: eventRouteChildren,
 }
 
-const eventRoot = [
+const newsletterRoutes = {
+    path: 'newsletter',
+    element: <NewsletterPage />,
+    action: newsletterAction,
+}
+
+const routes = [
     indexRoute,
-    childRoutes,
+    eventRoutes,
+    newsletterRoutes,
 ];
 
 const router = createBrowserRouter([
@@ -70,7 +78,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <RootLayout />,
         errorElement: <ErrorPage />,
-        children: eventRoot,
+        children: routes,
     },
 ]);
 
