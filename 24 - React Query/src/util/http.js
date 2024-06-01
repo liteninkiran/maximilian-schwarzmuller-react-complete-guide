@@ -4,8 +4,13 @@ export const queryClient = new QueryClient();
 
 const baseUrl = 'http://localhost:3000/events';
 
-export const fetchEvents = async ({ signal, searchTerm }) => {
-    const url = baseUrl + (searchTerm ? `?search=${searchTerm}` : '');
+export const fetchEvents = async ({ signal, searchTerm, max }) => {
+    let url = baseUrl + '?';
+    url += searchTerm ? `search=${searchTerm}&` : '';
+    url += max ? `max=${max}&` : '';
+    url = url.slice(-1) === '&' ? url.substring(0, url.length - 1) : url;
+    url = url.slice(-1) === '?' ? url.substring(0, url.length - 1) : url;
+    console.log(searchTerm, max, url);
     const response = await fetch(url, { signal: signal });
 
     if (!response.ok) {
