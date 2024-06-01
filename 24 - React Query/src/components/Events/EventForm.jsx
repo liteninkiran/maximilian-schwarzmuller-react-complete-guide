@@ -53,6 +53,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
                     id='description'
                     name='description'
                     defaultValue={inputData?.description ?? ''}
+                    style={{ resize: 'vertical' }}
                 />
             </p>
 

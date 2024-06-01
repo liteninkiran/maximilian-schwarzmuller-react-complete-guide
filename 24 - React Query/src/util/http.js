@@ -73,7 +73,6 @@ export async function fetchEvent({ id, signal }) {
     return event;
 }
 
-
 export async function deleteEvent({ id }) {
     const url = `${baseUrl}/${id}`;
     const options = { method: 'DELETE' }
@@ -81,6 +80,25 @@ export async function deleteEvent({ id }) {
 
     if (!response.ok) {
         const error = new Error('An error occurred while deleting the event');
+        error.code = response.status;
+        error.info = await response.json();
+        throw error;
+    }
+
+    return response.json();
+}
+
+export async function updateEvent({ id, event }) {
+    const url = `${baseUrl}/${id}`;
+    const options = {
+        method: 'PUT',
+        body: JSON.stringify({ event }),
+        headers: { 'Content-Type': 'application/json' },
+    }
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+        const error = new Error('An error occurred while updating the event');
         error.code = response.status;
         error.info = await response.json();
         throw error;
