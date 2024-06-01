@@ -1,5 +1,7 @@
+const baseUrl = 'http://localhost:3000/events';
+
 export const fetchEvents = async ({ signal, searchTerm }) => {
-    const url = 'http://localhost:3000/events' + (searchTerm ? `?search=${searchTerm}` : '');
+    const url = baseUrl + (searchTerm ? `?search=${searchTerm}` : '');
     const response = await fetch(url, { signal: signal });
 
     if (!response.ok) {
@@ -15,7 +17,7 @@ export const fetchEvents = async ({ signal, searchTerm }) => {
 }
 
 export const createNewEvent = async (eventData) => {
-    const url = 'http://localhost:3000/events';
+    const url = baseUrl;
     const options = {
         method: 'POST',
         body: JSON.stringify(eventData),
@@ -33,4 +35,20 @@ export const createNewEvent = async (eventData) => {
     const { event } = await response.json();
 
     return event;
+}
+
+export async function fetchSelectableImages({ signal }) {
+    const url = `${baseUrl}/images`;
+    const response = await fetch(url, { signal });
+
+    if (!response.ok) {
+        const error = new Error('An error occurred while fetching the images');
+        error.code = response.status;
+        error.info = await response.json();
+        throw error;
+    }
+
+    const { images } = await response.json();
+
+    return images;
 }
