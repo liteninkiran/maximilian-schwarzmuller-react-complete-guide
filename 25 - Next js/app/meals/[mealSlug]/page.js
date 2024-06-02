@@ -6,7 +6,7 @@ import classes from './page.module.css';
 
 export default function MealDetailsPage({ params }) {
     const meal = getMeal(params.mealSlug);
-
+    console.log(meal);
     if (!meal) {
         notFound();
     }
