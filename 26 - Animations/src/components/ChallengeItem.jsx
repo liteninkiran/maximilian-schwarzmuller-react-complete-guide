@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { motion } from 'framer-motion';
 
 import { ChallengesContext } from '../store/challenges-context.jsx';
 
@@ -8,9 +9,8 @@ export default function ChallengeItem({
     isExpanded,
 }) {
     const { updateChallengeStatus } = useContext(ChallengesContext);
-
     const formattedDate = new Date(challenge.deadline).toLocaleDateString(
-        'en-US',
+        'en-GB',
         {
             day: '2-digit',
             month: 'short',
@@ -18,13 +18,10 @@ export default function ChallengeItem({
         }
     );
 
-    function handleCancel() {
-        updateChallengeStatus(challenge.id, 'failed');
-    }
-
-    function handleComplete() {
-        updateChallengeStatus(challenge.id, 'completed');
-    }
+    const handleCancel = () => updateChallengeStatus(challenge.id, 'failed');
+    const handleComplete = () => updateChallengeStatus(challenge.id, 'completed');
+    const animate = { rotate: isExpanded ? 180 : 0 }
+    const className = 'challenge-item-details-icon';
 
     return (
         <li>
@@ -42,11 +39,13 @@ export default function ChallengeItem({
                         </p>
                     </div>
                 </header>
-                <div className={`challenge-item-details ${ isExpanded ? 'expanded' : '' }`}>
+                <div className='challenge-item-details'>
                     <p>
                         <button onClick={onViewDetails}>
                             View Details{' '}
-                            <span className='challenge-item-details-icon'>&#9650;</span>
+                            <motion.span animate={animate} className={className}>
+                                &#9650;
+                            </motion.span>
                         </button>
                     </p>
 
