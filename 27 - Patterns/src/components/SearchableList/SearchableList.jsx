@@ -1,8 +1,12 @@
 import { useState } from 'react';
 
-export default function SearchableList({ items }) {
+export default function SearchableList({ items, children }) {
     const [searchTerm, setSearchTerm] = useState('');
-    const searchResults = items.filter(item => JSON.stringify(item).toLowerCase().includes(searchTerm.toLowerCase()));
+    const searchResults = items.filter(item => {
+        const title = item.title?.toLowerCase().includes(searchTerm.toLowerCase());
+        const descr = item.description?.toLowerCase().includes(searchTerm.toLowerCase());
+        return title || descr;
+    });
     const handleChange = event => setSearchTerm(event.target.value);
 
     return (
@@ -11,7 +15,7 @@ export default function SearchableList({ items }) {
             <ul>
                 {
                     searchResults.map((item, index) => (
-                        <li key={index}>{item.toString()}</li>
+                        <li key={index}>{children(item)}</li>
                     ))
                 }
             </ul>
