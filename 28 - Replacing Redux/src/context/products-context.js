@@ -5,6 +5,7 @@ export const ProductsContext = React.createContext({
     toggleFav: (id) => { }
 });
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
     const [productsList, setProductsList] = useState(initialState);
     const toggleFavorite = productId => {
