@@ -39,10 +39,10 @@ export default function NewChallenge({ onDone }) {
         addChallenge(challenge);
     }
 
-    const visible = { opacity: 1, scale: 1 }
-    const hidden = { opacity: 0, scale: 1.5 }
+    const hidden = { opacity: 0, scale: 2 }
+    const visible = { opacity: 1, scale: [2, 1.5, 1] }
     const variants = {
-        ul: { visible: { transition: { staggerChildren: 0.05 } } },
+        ul: { visible: { transition: { staggerChildren: 0.5 } } },
         li: { hidden, visible }
     }
 
