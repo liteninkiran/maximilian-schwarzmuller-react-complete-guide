@@ -24,7 +24,7 @@ export default function ChallengeItem({
     const className = 'challenge-item-details-icon';
 
     return (
-        <li>
+        <motion.li layout>
             <article className='challenge-item'>
                 <header>
                     <img {...challenge.image} />
@@ -58,6 +58,6 @@ export default function ChallengeItem({
                     )}
                 </div>
             </article>
-        </li>
+        </motion.li>
     );
 }
