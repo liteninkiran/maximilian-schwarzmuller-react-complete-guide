@@ -39,8 +39,12 @@ export default function NewChallenge({ onDone }) {
         addChallenge(challenge);
     }
 
-    const hidden = { opacity: 0, scale: 0.1 }
     const visible = { opacity: 1, scale: 1 }
+    const hidden = { opacity: 0, scale: 1.5 }
+    const variants = {
+        ul: { visible: { transition: { staggerChildren: 0.05 } } },
+        li: { hidden, visible }
+    }
 
     return (
         <Modal title='New Challenge' onClose={onDone}>
@@ -60,10 +64,12 @@ export default function NewChallenge({ onDone }) {
                     <input ref={deadline} type='date' name='deadline' id='deadline' />
                 </p>
 
-                <ul id='new-challenge-images'>
+                <motion.ul
+                    id='new-challenge-images'
+                    variants={variants.ul}>
                     {images.map((image) => (
                         <motion.li
-                            variants={{ hidden, visible }}
+                            variants={variants.li}
                             exit={visible}
                             transition={{ type: 'spring' }}
                             key={image.alt}
@@ -73,7 +79,7 @@ export default function NewChallenge({ onDone }) {
                             <img {...image} />
                         </motion.li>
                     ))}
-                </ul>
+                </motion.ul>
 
                 <p className='new-challenge-actions'>
                     <button type='button' onClick={onDone}>
