@@ -1,11 +1,15 @@
-import React from 'react';
+type Props = {
+    items: string[];
+}
 
-const Todos: React.FC<{ items: string[] }> = (props) => {
+const Todos: React.FC<Props> = (props) => {
     return (
         <ul>
-            {props.items.map((item) => (
-                <li key={item}>{item}</li>
-            ))}
+            {
+                props.items.map((item) => (
+                    <li key={item}>{item}</li>
+                ))
+            }
         </ul>
     );
 };

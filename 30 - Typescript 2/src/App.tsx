@@ -1,9 +1,13 @@
 import Todos from './components/Todos';
 
 function App() {
+    const items = [
+        'Learn React',
+        'Learn TypeScript',
+    ];
     return (
         <div>
-            <Todos items={['Learn React', 'Learn TypeScript']} />
+            <Todos items={items} />
         </div>
     );
 }
